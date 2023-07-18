@@ -1,4 +1,4 @@
-import streamlit as sl
+T * import streamlit as sl
 import pandas as pd
 import requests as rq
 import snowflake.connector
@@ -32,7 +32,7 @@ sl.dataframe(fruityvice_normalised)
 
 my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
 my_data_row = my_cur.fetchone()
-sl.text("Hello from Snowflake:")
+sl.text("The Fruit Load list contains:")
 sl.text(my_data_row)
