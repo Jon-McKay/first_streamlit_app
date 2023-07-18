@@ -50,17 +50,20 @@ except URLError as e:
   sl.error()
 #sl.write('User entered ', fruit_choice)
 
+sl.header('View Our Fruit List - Add Your Favourites!')
 if sl.button('Get Fruit List'):
   my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
   sl.header("The Fruit Load list contains:")
   sl.dataframe(my_data_rows)
+  my_cnx.close()
 
 extra_fruit = sl.text_input('Add another fruit?')
 if sl.button('Add a fruit to the list'):
   my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
   sl.write(insert_row_snowflake(extra_fruit))
+  my_cnx.close()
 
 sl.stop()
 
-#my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('Test');")
+
