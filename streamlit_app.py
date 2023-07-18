@@ -17,6 +17,11 @@ def get_fruit_load_list():
     my_cur.execute("SELECT FRUIT_NAME FROM FRUIT_LOAD_LIST")
     return my_cur.fetchall()
 
+def insert_row_snowflake(new_fruit):
+  with my_cnx.cursor as my_cur:
+    my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('Test');")
+    return new_fruit + ' added.  Thanks.'
+
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
@@ -45,8 +50,6 @@ except URLError as e:
   sl.error()
 #sl.write('User entered ', fruit_choice)
 
-
-
 if sl.button('Get Fruit List'):
   my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
@@ -55,6 +58,8 @@ if sl.button('Get Fruit List'):
   
 sl.stop()
 extra_fruit = sl.text_input('Add another fruit?')
-sl.write(extra_fruit, ' added.  Thanks.')
+if sl.button('Add a fruit to the list'):
+  my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
+  sl.write(insert_row_snowflake(extra_fruit))
 
 #my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('Test');")
