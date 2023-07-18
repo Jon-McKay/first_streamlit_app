@@ -38,5 +38,5 @@ sl.header("The Fruit Load list contains:")
 sl.dataframe(my_data_rows)
 
 #extra_fruit_list = my_data_rows.set_index('FRUIT_NAME')
-extra_fruit = sl.multiselect('Add another fruit?', list(my_data_rows), 'Jackfruit')
+extra_fruit = sl.multiselect('Add another fruit?', list(my_data_rows))
 sl.write(extra_fruit, ' selected')
