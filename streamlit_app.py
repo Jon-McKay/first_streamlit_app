@@ -36,3 +36,6 @@ my_cur.execute("SELECT FRUIT_NAME FROM FRUIT_LOAD_LIST")
 my_data_rows = my_cur.fetchall()
 sl.header("The Fruit Load list contains:")
 sl.dataframe(my_data_rows)
+
+extra_fruit = sl.multiselect('Add another fruit?', my_data_rows, 'Jackfruit')
+sl.write(extra_fruit, ' selected')
