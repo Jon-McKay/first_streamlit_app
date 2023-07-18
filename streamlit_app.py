@@ -39,3 +39,5 @@ sl.dataframe(my_data_rows)
 
 extra_fruit = sl.text_input('Add another fruit?')
 sl.write(extra_fruit, ' added.  Thanks.')
+
+my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('Test');")
