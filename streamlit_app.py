@@ -22,14 +22,18 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 sl.dataframe(fruits_to_show)
 
 sl.header('Fruityvice Fruit Advice')
-fruit_choice = sl.text_input('What fruit would you like more information about?', 'Kiwi')
+try:
+  fruit_choice = sl.text_input('What fruit would you like more information about?')
+  if not fruit_chioce:
+    sl.error("Please enter a fruit to get information")
+  else:
+    fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalised = pd.json_normalize(fruityvice_response.json())
+    sl.dataframe(fruityvice_normalised)
+except URLError as e:
+  sl.error()
 sl.write('User entered ', fruit_choice)
 
-fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-#sl.text(fruityvice_response.json())
-
-fruityvice_normalised = pd.json_normalize(fruityvice_response.json())
-sl.dataframe(fruityvice_normalised)
 sl.stop()
 
 my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
