@@ -55,11 +55,12 @@ if sl.button('Get Fruit List'):
   my_data_rows = get_fruit_load_list()
   sl.header("The Fruit Load list contains:")
   sl.dataframe(my_data_rows)
-  
-sl.stop()
+
 extra_fruit = sl.text_input('Add another fruit?')
 if sl.button('Add a fruit to the list'):
   my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
   sl.write(insert_row_snowflake(extra_fruit))
+
+sl.stop()
 
 #my_cur.execute("INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST VALUES ('Test');")
